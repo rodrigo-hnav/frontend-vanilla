@@ -19,3 +19,25 @@ export const loadProductByName = async () => {
     console.log(error.message);
   }
 };
+
+//filtro de productos por categoria y orden por nombre asc
+export const loadProductByCategoryAZ = async (idCategory) => {
+    try {
+      const response = await fetch(API_URL + "/productbycategory/" + idCategory);
+      return await response.json();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  
+//filtro de productos por categoria y orden asc
+export const loadProductByPriceCategory = async ({ id, order }) => {
+    try {
+      const response = await fetch(
+        API_URL + "/productbyorderpricecategory/" + id + "&" + order
+      );
+      return await response.json();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
