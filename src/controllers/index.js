@@ -5,7 +5,8 @@ import {
   productByCategory, 
   productByName,
   productByAz,
-  productListAll
+  productListAll,
+  productByPriceOrderCategory,
 } from "./products.controller";
 
 const pages = {
@@ -16,6 +17,7 @@ const pages = {
   productByCategory,
   productByAz,
   productListAll,
+  productByPriceOrderCategory,
 };
 
 export { pages };

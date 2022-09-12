@@ -29,6 +29,16 @@ const router = async (route, data) => {
     case "#/productlistall": {
       return content.appendChild(await pages.productListAll());
     }
+    case "#/productbypricecategoryasc": {
+      return content.appendChild(
+        await pages.productByPriceOrderCategory("asc")
+      );
+    }
+    case "#/productbypricecategorydesc": {
+      return content.appendChild(
+        await pages.productByPriceOrderCategory("desc")
+      );
+    }
     default: {
       return content.appendChild(pages.notFound());
     }

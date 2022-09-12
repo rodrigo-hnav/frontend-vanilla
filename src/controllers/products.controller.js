@@ -66,13 +66,13 @@ export const productByName = async () => {
 };
 
 export const productByPriceOrder = async (data) => {
-    const products = await loadProductByPrice(data);
-    if (products.message == "Product not found") {
-      return;
-    }
-    return renderProductsDiv(products);
-  };
-  
+  const products = await loadProductByPrice(data);
+  if (products.message == "Product not found") {
+    return;
+  }
+  return renderProductsDiv(products);
+};
+
 export const productListAll = async () => {
   const divOrderBy = document.getElementById("p_orderby");
   let products;
@@ -111,26 +111,63 @@ export const loadProductByNamePrice = async (order) => {
 };
 
 export const productByAz = async () => {
-    const divOrderBy = document.getElementById("p_orderby");
-    divOrderBy.innerHTML = `<p>A-Z</p>
+  const divOrderBy = document.getElementById("p_orderby");
+  divOrderBy.innerHTML = `<p>A-Z</p>
     <p ><span class="material-symbols-outlined">
     arrow_downward
       </span> </p>`;
-    divOrderBy.dataset.order = "a-z";
-    const txtBuscar = document.getElementById("txtBuscar").value;
-    if (txtBuscar.length > 0) {
-      return productByName();
+  divOrderBy.dataset.order = "a-z";
+  const txtBuscar = document.getElementById("txtBuscar").value;
+  if (txtBuscar.length > 0) {
+    return productByName();
+  } else {
+    let idCategorySelected = getActiveListItem();
+    if (idCategorySelected > 0) {
+      const products = await loadProductByCategoryAZ(idCategorySelected);
+      return renderProductsDiv(products);
     } else {
-      let idCategorySelected = getActiveListItem();
-      if (idCategorySelected > 0) {
-        const products = await loadProductByCategoryAZ(idCategorySelected);
-        return renderProductsDiv(products);
-      } else {
-        const products = await loadProducts();
-        return renderProductsDiv(products);
-      }
+      const products = await loadProducts();
+      return renderProductsDiv(products);
     }
+  }
+};
+
+export const productByPriceOrderCategory = async (typeOrder) => {
+  let idCategorySelected = getActiveListItem();
+
+  const typeOrderCategory = {
+    id: idCategorySelected,
+    order: typeOrder,
   };
+
+  const divOrderBy = document.getElementById("p_orderby");
+  if (typeOrder == "asc") {
+    divOrderBy.innerHTML = `<p  >Precio</p>
+      <p ><span class="material-symbols-outlined">
+        arrow_downward
+        </span> </p>`;
+    divOrderBy.dataset.order = "p-down";
+  } else {
+    divOrderBy.innerHTML = `<p  >Precio</p>
+      <p ><span class="material-symbols-outlined">
+        arrow_upward
+        </span> </p>`;
+    divOrderBy.dataset.order = "p-up";
+  }
+  const txtBuscar = document.getElementById("txtBuscar").value;
+  if (txtBuscar.length > 0) {
+    return productByName();
+  } else {
+    if (idCategorySelected > 0) {
+      const products = await loadProductByPriceCategory(typeOrderCategory);
+      return renderProductsDiv(products);
+    } else {
+      //loadProductByPrice
+      const products = await loadProductByPrice(typeOrder);
+      return renderProductsDiv(products);
+    }
+  }
+};
 
 //verificar categoria
 const getActiveListItem = () => {
