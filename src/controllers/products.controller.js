@@ -65,6 +65,14 @@ export const productByName = async () => {
   return renderProductsDiv(products);
 };
 
+export const productByPriceOrder = async (data) => {
+    const products = await loadProductByPrice(data);
+    if (products.message == "Product not found") {
+      return;
+    }
+    return renderProductsDiv(products);
+  };
+  
 export const productListAll = async () => {
   const divOrderBy = document.getElementById("p_orderby");
   let products;
