@@ -14,7 +14,9 @@ const router = async (route, data) => {
     case "#/categorys": {
       return await pages.categorys();
     }
-
+    case "#/productbyname": {
+      return content.appendChild(await pages.productByName());
+    }
     default: {
       return content.appendChild(pages.notFound());
     }
