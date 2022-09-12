@@ -1,22 +1,25 @@
 import Home from "./home.controller";
 import NotFound from "./404.controller";
-import  category  from "./categorias.controller";
 import { 
   productByCategory, 
   productByName,
-  productByAz,
+  productByPriceOrder,
   productListAll,
+  productByAz,
   productByPriceOrderCategory,
 } from "./products.controller";
+import  category  from "./categorias.controller";
+
 
 const pages = {
   home: Home,
   notFound: NotFound,
   categorys: category,
-  productByName,
   productByCategory,
-  productByAz,
+  productByName,
+  productByPriceOrder,
   productListAll,
+  productByAz,
   productByPriceOrderCategory,
 };
 

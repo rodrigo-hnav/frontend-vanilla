@@ -2,9 +2,13 @@ import {
   loadProducts,
   loadProductByName,
   loadProductByCategoryAZ,
-  loadProductByPriceCategory,
   loadProductByPrice,
+  loadProductByPriceCategory,
+  loadProductByNamePrice,
 } from "../api/api.products.js";
+
+//logica de busquedas por elemntos:
+// dropdown (criterios de ordenamirnto) y  listgroup (categorias)
 
 export const productByCategory = async (data) => {
   const divOrderBy = document.getElementById("p_orderby");
@@ -95,27 +99,12 @@ export const productListAll = async () => {
   return renderProductsDiv(products);
 };
 
-//filtro por nombre de producto y ordenados por precio
-export const loadProductByNamePrice = async (order) => {
-  try {
-    const txtBuscar = document.getElementById("txtBuscar").value;
-    if (txtBuscar.length > 0) {
-      const response = await fetch(
-        API_URL + "/productsbynamepriceorder/" + txtBuscar + "&" + order
-      );
-      return await response.json();
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 export const productByAz = async () => {
   const divOrderBy = document.getElementById("p_orderby");
   divOrderBy.innerHTML = `<p>A-Z</p>
-    <p ><span class="material-symbols-outlined">
-    arrow_downward
-      </span> </p>`;
+  <p ><span class="material-symbols-outlined">
+  arrow_downward
+    </span> </p>`;
   divOrderBy.dataset.order = "a-z";
   const txtBuscar = document.getElementById("txtBuscar").value;
   if (txtBuscar.length > 0) {
@@ -143,15 +132,15 @@ export const productByPriceOrderCategory = async (typeOrder) => {
   const divOrderBy = document.getElementById("p_orderby");
   if (typeOrder == "asc") {
     divOrderBy.innerHTML = `<p  >Precio</p>
-      <p ><span class="material-symbols-outlined">
-        arrow_downward
-        </span> </p>`;
+    <p ><span class="material-symbols-outlined">
+      arrow_downward
+      </span> </p>`;
     divOrderBy.dataset.order = "p-down";
   } else {
     divOrderBy.innerHTML = `<p  >Precio</p>
-      <p ><span class="material-symbols-outlined">
-        arrow_upward
-        </span> </p>`;
+    <p ><span class="material-symbols-outlined">
+      arrow_upward
+      </span> </p>`;
     divOrderBy.dataset.order = "p-up";
   }
   const txtBuscar = document.getElementById("txtBuscar").value;
@@ -169,7 +158,7 @@ export const productByPriceOrderCategory = async (typeOrder) => {
   }
 };
 
-//verificar categoria
+// renderizar lista de productos
 const getActiveListItem = () => {
   const listGroupItems = document.querySelectorAll("a.list-group-item");
   let idCategory = 0;
@@ -182,8 +171,6 @@ const getActiveListItem = () => {
   });
   return idCategory;
 };
-
-// renderizar lista de productos
 
 const createListProducts = (cardProduct) => {
   return cardProduct
@@ -208,9 +195,10 @@ const createListProducts = (cardProduct) => {
 const renderProductsDiv = async (products) => {
   const divElement = document.createElement("div");
 
+
   if (products.message == "Product not found") {
     divElement.innerHTML = `<h6>No se encuentra el producto que buscas, favor intenta con otro producto</h6>`;
-    return divElement;
+    return divElement
   }
   divElement.classList.add("row");
   divElement.classList.add("row-cols-1");
