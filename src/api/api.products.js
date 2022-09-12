@@ -29,7 +29,15 @@ export const loadProductByCategoryAZ = async (idCategory) => {
       console.log(error.message);
     }
   };
-  
+//filtro de productos ordenados por precio 
+export const loadProductByPrice = async (typeOrder) => {
+    try {
+      const response = await fetch(API_URL + "/productbyorderprice/" + typeOrder);
+      return await response.json();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };  
 //filtro de productos por categoria y orden asc
 export const loadProductByPriceCategory = async ({ id, order }) => {
     try {

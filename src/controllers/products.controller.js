@@ -3,6 +3,7 @@ import {
   loadProductByName,
   loadProductByCategoryAZ,
   loadProductByPriceCategory,
+  loadProductByPrice,
 } from "../api/api.products.js";
 
 export const productByCategory = async (data) => {

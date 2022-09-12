@@ -5,6 +5,7 @@ import {
   productByCategory, 
   productByName,
   productByAz,
+  productListAll
 } from "./products.controller";
 
 const pages = {
@@ -14,6 +15,7 @@ const pages = {
   productByName,
   productByCategory,
   productByAz,
+  productListAll,
 };
 
 export { pages };
