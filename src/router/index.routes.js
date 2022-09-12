@@ -20,6 +20,12 @@ const router = async (route, data) => {
     case "#/productbyname": {
       return content.appendChild(await pages.productByName());
     }
+    case "#/productbypriceasc": {
+      return content.appendChild(await pages.productByPriceOrder("asc"));
+    }
+    case "#/productbypricedes": {
+      return content.appendChild(await pages.productByPriceOrder("desc"));
+    }
     case "#/productlistall": {
       return content.appendChild(await pages.productListAll());
     }
